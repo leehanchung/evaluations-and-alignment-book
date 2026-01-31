@@ -1,0 +1,46 @@
+# Virtual environment
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_meta/
+
+# Data files
+data/
+
+# Docs (internal only)
+docs/
+*.csv
+*.parquet
+*.json
+!pyproject.toml
+
+# Model weights
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
