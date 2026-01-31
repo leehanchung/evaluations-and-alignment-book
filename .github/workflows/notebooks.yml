@@ -1,0 +1,85 @@
+name: Test Notebooks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'notebooks/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'notebooks/**'
+  workflow_dispatch:
+    inputs:
+      notebook:
+        description: 'Specific notebook to run (e.g., ch01_intro.ipynb), or leave empty for changed only'
+        required: false
+
+jobs:
+  test-notebooks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    continue-on-error: true
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed notebooks
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ github.event.inputs.notebook }}" ]; then
+            echo "notebooks=notebooks/${{ github.event.inputs.notebook }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" = "pull_request" ]; then
+            CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- 'notebooks/*.ipynb' | tr '\n' ' ')
+            echo "notebooks=$CHANGED" >> $GITHUB_OUTPUT
+          else
+            CHANGED=$(git diff --name-only HEAD~1 -- 'notebooks/*.ipynb' | tr '\n' ' ')
+            echo "notebooks=$CHANGED" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check for notebooks to run
+        id: check
+        run: |
+          if [ -z "${{ steps.changed.outputs.notebooks }}" ]; then
+            echo "No notebooks changed"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "Notebooks to run: ${{ steps.changed.outputs.notebooks }}"
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install uv
+        if: steps.check.outputs.skip != 'true'
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        if: steps.check.outputs.skip != 'true'
+        run: uv python install
+
+      - name: Install dependencies
+        if: steps.check.outputs.skip != 'true'
+        run: uv sync
+
+      - name: Run changed notebooks
+        if: steps.check.outputs.skip != 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          for notebook in ${{ steps.changed.outputs.notebooks }}; do
+            if [ -f "$notebook" ]; then
+              echo "::group::Running $notebook"
+              uv run jupyter nbconvert --to notebook --execute --inplace "$notebook" || echo "::warning::$notebook failed"
+              echo "::endgroup::"
+            fi
+          done
+
+      - name: Summary
+        if: steps.check.outputs.skip != 'true'
+        run: |
+          echo "## Notebook Execution Summary" >> $GITHUB_STEP_SUMMARY
+          echo "Ran: ${{ steps.changed.outputs.notebooks }}" >> $GITHUB_STEP_SUMMARY
