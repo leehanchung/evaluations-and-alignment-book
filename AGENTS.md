@@ -6,7 +6,7 @@ Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working i
 
 Companion repository for **AI Evaluation and Alignments** (Manning Seminal Papers Series).
 
-### Chapters
+### Chapters (Available)
 
 **Part 1: Foundational Evaluation Metrics**
 - Ch 1: Evaluations and Alignments for AI
@@ -15,17 +15,6 @@ Companion repository for **AI Evaluation and Alignments** (Manning Seminal Paper
 
 **Part 2: AI Native Evaluation**
 - Ch 4: LLM-as-a-Judge
-- Ch 5: Detecting Hallucinations
-- Ch 6: Evaluating RAG
-
-**Part 3: Aligning AI**
-- Ch 7: RLHF Foundation
-- Ch 8: Constitutional AI
-- Ch 9: Red Teaming and Safety
-- Ch 10: Deliberative Alignment
-
-**Part 4: Future Directions**
-- Ch 11: Evolving Landscape
 
 ## Environment
 
@@ -58,14 +47,7 @@ notebooks/
 ├── ch01_intro.ipynb
 ├── ch02_bleu_rouge.ipynb
 ├── ch03_bertscore_comet.ipynb
-├── ch04_llm_as_judge.ipynb
-├── ch05_hallucinations.ipynb
-├── ch06_rag_evaluation.ipynb
-├── ch07_rlhf.ipynb
-├── ch08_constitutional_ai.ipynb
-├── ch09_red_teaming.ipynb
-├── ch10_deliberative_alignment.ipynb
-└── ch11_evolving_landscape.ipynb
+└── ch04_llm_as_judge.ipynb
 
 data/              # Data files (gitignored)
 docs/              # Additional documentation

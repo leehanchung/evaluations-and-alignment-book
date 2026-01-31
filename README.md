@@ -15,21 +15,8 @@ Companion repository for **AI Evaluation and Alignments** (Manning Seminal Paper
 | Ch | Title | Notebook |
 |----|-------|----------|
 | 4 | LLM-as-a-Judge: The New Paradigm | [ch04_llm_as_judge.ipynb](notebooks/ch04_llm_as_judge.ipynb) |
-| 5 | Detecting and Quantifying Hallucinations | [ch05_hallucinations.ipynb](notebooks/ch05_hallucinations.ipynb) |
-| 6 | Evaluating Retrieval-Augmented Generation | [ch06_rag_evaluation.ipynb](notebooks/ch06_rag_evaluation.ipynb) |
 
-### Part 3: Aligning AI
-| Ch | Title | Notebook |
-|----|-------|----------|
-| 7 | RLHF: The Foundation | [ch07_rlhf.ipynb](notebooks/ch07_rlhf.ipynb) |
-| 8 | Constitutional AI: Alignment Through Principles | [ch08_constitutional_ai.ipynb](notebooks/ch08_constitutional_ai.ipynb) |
-| 9 | Red Teaming and Beyond | [ch09_red_teaming.ipynb](notebooks/ch09_red_teaming.ipynb) |
-| 10 | Deliberative Alignment | [ch10_deliberative_alignment.ipynb](notebooks/ch10_deliberative_alignment.ipynb) |
-
-### Part 4: Future Directions
-| Ch | Title | Notebook |
-|----|-------|----------|
-| 11 | The Evolving Landscape | [ch11_evolving_landscape.ipynb](notebooks/ch11_evolving_landscape.ipynb) |
+*More chapters coming soon.*
 
 ## Quick Start
 
@@ -55,7 +42,7 @@ uv run jupyter notebook
 
 ```
 eval-align-book/
-├── notebooks/          # Chapter notebooks (ch01-ch11)
+├── notebooks/          # Chapter notebooks (ch01-ch04)
 ├── data/               # Datasets (gitignored)
 └── docs/               # Additional documentation
 ```
